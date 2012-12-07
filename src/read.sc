@@ -32,9 +32,9 @@ behavior Read(in unsigned char ScanBuffer[L_IMG_HEIGHT][L_IMG_WIDTH],
   GetPixel getPixel(ScanBuffer, q_pixel);
 
   void main(void) {
-
-    getM.main();
-    getPixel.main();
- 
+    par {
+      getM.main();
+      getPixel.main();
+    }
   }
 };

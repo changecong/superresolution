@@ -33,7 +33,7 @@
 // #define DEBUG_M
 // #define DEBUG_DONE
 // #define DEBUG_INTAVIM
-#define DEBUG_BMP_OP
+// #define DEBUG_BMP_OP
 
 #define K 5  // number of low-res images
 

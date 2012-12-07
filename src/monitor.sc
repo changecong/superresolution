@@ -2,7 +2,7 @@
  * File Name: monitor.sc
  * Created By: Zhicong Chen -- chen.zhico@husky.neu.edu
  * Creation Date: [2012-12-06 11:56]
- * Last Modified: [2012-12-07 02:20]
+ * Last Modified: [2012-12-07 11:47]
  * Licence: chenzc (c) 2012 | all rights reserved
  * Description:  
  *********************************************************/
@@ -19,13 +19,16 @@ typedef char BYTE;
 
 #pragma pack(push, 1)
 
-typedef struct tagBITMAPFILEHEADER {
-	BYTE bfType;
+typedef struct tagBITMAPFILEHEADERTYPE {
+    WORD bfType;
+} BITMAPFILEHEADERTYPE;
+
+typedef struct tagBITMAPFILEHEADERNEW {
 	DWORD bfSize;
 	WORD bfReserved1;
 	WORD bfReserved2;
 	DWORD bfOffBits;
-} BITMAPFILEHEADER;
+} BITMAPFILEHEADERNEW;
 
 typedef struct tagBITMAPINFOHEADER {
 	/* BITMAP core header info -> OS/2 */
@@ -51,7 +54,8 @@ typedef struct tagRGBTRIPLE {
 #pragma pack(pop)
 
 FILE* f;
-BITMAPFILEHEADER NewBmpFileHeader;
+BITMAPFILEHEADERTYPE NewBmpFileHeadertype;
+BITMAPFILEHEADERNEW NewBmpFileHeader;
 BITMAPINFOHEADER NewBmpInfoHeader;
 //RGBTRIPLE BmpColors[256];
 
@@ -62,13 +66,13 @@ void initBMPHeader()
  long height = INT_H_IMG_HEIGHT;
  
 
- NewBmpFileHeader.bfType = 0x4d42; 
+ NewBmpFileHeadertype.bfType = 0x4d42; 
 
  // size
- NewBmpFileHeader.bfSize = width * height * 3 + sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER);
+ NewBmpFileHeader.bfSize = width * height * 3 + sizeof(BITMAPFILEHEADERNEW) + sizeof(BITMAPINFOHEADER) + sizeof(BITMAPFILEHEADERTYPE);
  NewBmpFileHeader.bfReserved1 = 0;
  NewBmpFileHeader.bfReserved2 = 0;
- NewBmpFileHeader.bfOffBits = sizeof(BITMAPFILEHEADER) +sizeof(BITMAPINFOHEADER);
+ NewBmpFileHeader.bfOffBits = sizeof(BITMAPFILEHEADERNEW) + sizeof(BITMAPINFOHEADER) + sizeof(BITMAPFILEHEADERTYPE);
    
  NewBmpInfoHeader.biSize = sizeof(BITMAPINFOHEADER);
  NewBmpInfoHeader.biWidth = width;
@@ -85,7 +89,7 @@ void initBMPHeader()
 
 #ifdef DEBUG_BMP_OP
 
-  printf("bfType: %d\n", NewBmpFileHeader.bfType);
+  printf("bfType: %d\n", NewBmpFileHeadertype.bfType);
   printf("bfSize: %ld\n", NewBmpFileHeader.bfSize);
   printf("bfReserved1: %d\n", NewBmpFileHeader.bfReserved1);
   printf("bfReserved2: %d\n", NewBmpFileHeader.bfReserved2);
@@ -140,7 +144,9 @@ behavior Monitor(i_receiver q_bmp)
     if (!flag) {
 
       initBMPHeader();
-      fwrite(&NewBmpFileHeader, sizeof(BITMAPFILEHEADER), 1, f);
+      // fwrite(&NewBmpFileHeader, sizeof(BITMAPFILEHEADER), 1, f);
+      fwrite(&NewBmpFileHeadertype, sizeof(BITMAPFILEHEADERTYPE), 1, f);
+      fwrite(&NewBmpFileHeader, sizeof(BITMAPFILEHEADERNEW), 1, f);
       fwrite(&NewBmpInfoHeader, sizeof(BITMAPINFOHEADER), 1, f);
 
       flag++;

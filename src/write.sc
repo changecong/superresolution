@@ -57,11 +57,11 @@ behavior Write(in double avim[H_IMG_HEIGHT][H_IMG_WIDTH],
       buff_ptr = 0;
     }
 
-#ifdef DEBUG_Done
+#ifdef DEBUG_DONE
   printf("Done.\n");
 #endif
     // send an file end acknowledgement
-    q_bmp.send(end, 4);
+    q_bmp.send(end, INT_H_IMG_HEIGHT);
   }
 
 };

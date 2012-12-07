@@ -40,26 +40,13 @@ behavior GetNewPixel(i_receiver dh_m, i_receiver q_pixel,
 
     dh_m.receive(M, sizeof(double[11]));
 
-#ifdef DEBUG_DH_M
-  printf("M[11] is received.\n");
-#endif
-
     for(y = 0; y < L_IMG_HEIGHT; y++) {
       for(x = 0; x < L_IMG_WIDTH; x++) { 
 
         getLambdaGauss.main();
-#ifdef DEBUG_B_GETNEWPIXEL
-  printf("calculate pixel (%d, %d)\n", x, y);
-#endif
-
         avimFromoN10Gauss.main();
       }
-    }
-
-#ifdef DEBUG_B_ONEIMAGEDONE
-  printf("One image done.\n");
-#endif
-   
+    }   
   }
 };
 

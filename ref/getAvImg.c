@@ -2,7 +2,7 @@
  * File Name: getAvImg.c
  * Created By: Zhicong Chen -- chen.zhico@husky.neu.edu
  * Creation Date: [2012-11-30 12:26]
- * Last Modified: [2012-12-01 03:36]
+ * Last Modified: [2012-12-06 19:54]
  * Licence: chenzc (c) 2012 | all rights reserved
  * Description:  
  *********************************************************/
@@ -168,6 +168,5 @@ void avimFromoN10Gauss(double av[H_IMG_HEIGHT][H_IMG_WIDTH], double M[K][11], Im
       }
     }
   }
-ls
 }
 

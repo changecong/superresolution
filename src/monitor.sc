@@ -2,7 +2,7 @@
  * File Name: monitor.sc
  * Created By: Zhicong Chen -- chen.zhico@husky.neu.edu
  * Creation Date: [2012-12-06 11:56]
- * Last Modified: [2012-12-06 13:02]
+ * Last Modified: [2012-12-07 02:20]
  * Licence: chenzc (c) 2012 | all rights reserved
  * Description:  
  *********************************************************/
@@ -20,7 +20,7 @@ typedef char BYTE;
 #pragma pack(push, 1)
 
 typedef struct tagBITMAPFILEHEADER {
-	WORD bfType;
+	BYTE bfType;
 	DWORD bfSize;
 	WORD bfReserved1;
 	WORD bfReserved2;
@@ -65,10 +65,10 @@ void initBMPHeader()
  NewBmpFileHeader.bfType = 0x4d42; 
 
  // size
- NewBmpFileHeader.bfSize = width * height * 3 + sizeof(BITMAPFILEHEADER)+sizeof(BITMAPINFOHEADER);
+ NewBmpFileHeader.bfSize = width * height * 3 + sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER);
  NewBmpFileHeader.bfReserved1 = 0;
  NewBmpFileHeader.bfReserved2 = 0;
- NewBmpFileHeader.bfOffBits = sizeof(BITMAPFILEHEADER)+sizeof(BITMAPINFOHEADER);
+ NewBmpFileHeader.bfOffBits = sizeof(BITMAPFILEHEADER) +sizeof(BITMAPINFOHEADER);
    
  NewBmpInfoHeader.biSize = sizeof(BITMAPINFOHEADER);
  NewBmpInfoHeader.biWidth = width;
@@ -150,6 +150,11 @@ behavior Monitor(i_receiver q_bmp)
     while (1) {
 
       q_bmp.receive(buffer, INT_H_IMG_WIDTH);
+
+#ifdef DEBUG_Q_BMP
+  printf("Receive one row.\n");
+#endif 
+
 
       if (buffer[0] == 'e' && buffer[1] == 'o' && buffer[2] == 'f') {
         fclose(f);

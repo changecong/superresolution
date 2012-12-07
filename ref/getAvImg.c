@@ -2,7 +2,7 @@
  * File Name: getAvImg.c
  * Created By: Zhicong Chen -- chen.zhico@husky.neu.edu
  * Creation Date: [2012-11-30 12:26]
- * Last Modified: [2012-12-06 19:54]
+ * Last Modified: [2012-12-07 01:25]
  * Licence: chenzc (c) 2012 | all rights reserved
  * Description:  
  *********************************************************/
@@ -136,6 +136,10 @@ void avimFromoN10Gauss(double av[H_IMG_HEIGHT][H_IMG_WIDTH], double M[K][11], Im
           highh = (ceil(nuh+deltah) < H_IMG_WIDTH) ? (int)ceil(nuh+deltah) : H_IMG_WIDTH;
           highv = (ceil(nuv+deltav) < H_IMG_HEIGHT) ? (int)ceil(nuv+deltav) : H_IMG_HEIGHT; 
           // Find the right box in the HR image to scan over.
+#ifdef DEBUG_MAP
+  printf("%d %d %d %d\n", lowh, lowv, highh, highv);
+#endif
+
 
           myscaler = 0;
 

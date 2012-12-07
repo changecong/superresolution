@@ -2,7 +2,7 @@
  * File Name: superresolution.sc
  * Created By: Zhicong Chen -- chen.zhico@husky.neu.edu
  * Creation Date: [2012-12-06 11:23]
- * Last Modified: [2012-12-06 14:15]
+ * Last Modified: [2012-12-07 01:58]
  * Licence: chenzc (c) 2012 | all rights reserved
  * Description:  
  *********************************************************/
@@ -22,7 +22,7 @@ behavior Main {
   unsigned char ScanBuffer[L_IMG_HEIGHT][L_IMG_WIDTH];
   double HLG[12];
   c_handshake start;
-  const unsigned long qSize = sizeof(char[H_IMG_HEIGHT*4]);
+  const unsigned long qSize = sizeof(char[20400]);
   c_queue q_bmp(qSize);
 
   Stimulus stimulus(ScanBuffer, HLG, start);
@@ -31,12 +31,11 @@ behavior Main {
 
   int main(void) {
 
-    
-   
-      stimulus.main();
-      design.main();
-      monitor.main();
-    
+  par {  
+    stimulus.main();
+    design.main();
+    monitor.main();    
+  };
     return 0;
  
   }

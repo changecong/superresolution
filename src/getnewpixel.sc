@@ -2,7 +2,7 @@
  * File Name: getnewpixel.sc
  * Created By: Zhicong Chen -- chen.zhico@husky.neu.edu
  * Creation Date: [2012-12-05 14:58]
- * Last Modified: [2012-12-06 16:13]
+ * Last Modified: [2012-12-07 01:13]
  * Licence: chenzc (c) 2012 | all rights reserved
  * Description:  
  *********************************************************/
@@ -18,14 +18,13 @@ import "getLambdaGauss";
 import "avimFromoN10Gauss";
 
 
-behavior GetNewPixel(i_receiver dh_m, i_receive start_av,
-                     i_receiver q_pixel, i_send start_gen,
+behavior GetNewPixel(i_receiver dh_m, i_receiver q_pixel, 
                      inout double avim[H_IMG_HEIGHT][H_IMG_WIDTH],
                      inout double h[H_IMG_HEIGHT][H_IMG_WIDTH],
                      inout double ms[H_IMG_HEIGHT][H_IMG_WIDTH])
 {
 
-  int nuv, nuh, b11, b12, b22, deltav, deltah;
+  double nuv, nuh, b11, b12, b22, deltav, deltah;
   int x, y, iter;
   int counter = 0;
   double M[11] = {0.0};
@@ -39,30 +38,28 @@ behavior GetNewPixel(i_receiver dh_m, i_receive start_av,
 
   void main(void) {
 
-    counter = 0;
+    dh_m.receive(M, sizeof(double[11]));
 
-    while(counter < K) {
+#ifdef DEBUG_DH_M
+  printf("M[11] is received.\n");
+#endif
 
-      dh_m.receive(M, sizeof(double)*11);
+    for(y = 0; y < L_IMG_HEIGHT; y++) {
+      for(x = 0; x < L_IMG_WIDTH; x++) { 
 
-//      start_av.receive();
-
-      for(y = 0; y < L_IMG_HEIGHT; y++) {
-        for(x = 0; x < L_IMG_WIDTH; x++) { 
-
-          getLambdaGauss.main();
+        getLambdaGauss.main();
 #ifdef DEBUG_B_GETNEWPIXEL
   printf("calculate pixel (%d, %d)\n", x, y);
 #endif
 
-          avimFromoN10Gauss.main();
-        }
+        avimFromoN10Gauss.main();
       }
-
-      counter++;
     }
 
-    start_gen.send();  // after all images are processed, send a signal.
+#ifdef DEBUG_B_ONEIMAGEDONE
+  printf("One image done.\n");
+#endif
+   
   }
 };
 

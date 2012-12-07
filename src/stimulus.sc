@@ -2,11 +2,12 @@
  * File Name: stimulus.sc
  * Created By: Zhicong Chen -- chen.zhico@husky.neu.edu
  * Creation Date: [2012-12-06 11:04]
- * Last Modified: [2012-12-06 13:05]
+ * Last Modified: [2012-12-07 01:39]
  * Licence: chenzc (c) 2012 | all rights reserved
  * Description:  
  *********************************************************/
 
+#include <sim.sh>
 #include "stimulus.sh"
 
 import "i_send";
@@ -18,7 +19,7 @@ const double LB[K] = {IMG_1_LB, IMG_2_LB, IMG_3_LB, IMG_4_LB, IMG_5_LB};
 
 const double H[K][9] = {IMG_1_H, IMG_2_H, IMG_3_H, IMG_4_H, IMG_5_H};
 
-const double gam = 5;
+const double gam = 0.4;
 
 // option to use BMPCOLORS, default grayscale only
 // #define USE_BMPCOLORS
@@ -320,7 +321,10 @@ behavior Stimulus(inout unsigned char ScanBuffer[L_IMG_HEIGHT][L_IMG_WIDTH],
       // read parameters end
       // one page done. send sigal.
       start.send();
-   
+#ifdef DEBUG_H_START
+  printf("Send start signal.\n");
+#endif   
+      waitfor(200 MILLI_SEC);
     }
   }
 

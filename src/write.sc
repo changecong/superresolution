@@ -2,7 +2,7 @@
  * File Name: write.sc
  * Created By: Zhicong Chen -- chen.zhico@husky.neu.edu
  * Creation Date: [2012-12-06 11:45]
- * Last Modified: [2012-12-06 12:09]
+ * Last Modified: [2012-12-07 01:51]
  * Licence: chenzc (c) 2012 | all rights reserved
  * Description:  
  *********************************************************/
@@ -33,7 +33,14 @@ behavior Write(in double avim[H_IMG_HEIGHT][H_IMG_WIDTH],
 
         temp = (avim[i][j] + 0.5) * 255;
         newAvIm[i - gap][j - gap] = (uint8)temp;
+ 
+#ifdef DEBUG_INTAVIM
+  printf("%d ", newAvIm[i - gap][j - gap]);
+#endif
       }
+#ifdef DEBUG_INTAVIM
+  printf("\n\n");
+#endif 
     }
 
     // send into the queue 
@@ -44,9 +51,15 @@ behavior Write(in double avim[H_IMG_HEIGHT][H_IMG_WIDTH],
         }
       }
       q_bmp.send(buffer, buff_ptr);
+#ifdef DEBUG_Q_BMP
+  printf("Send one row.\n");
+#endif
       buff_ptr = 0;
     }
 
+#ifdef DEBUG_Done
+  printf("Done.\n");
+#endif
     // send an file end acknowledgement
     q_bmp.send(end, 4);
   }

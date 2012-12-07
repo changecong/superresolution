@@ -2,7 +2,7 @@
  * File Name: superresultion.h
  * Created By: Zhicong Chen -- chen.zhico@husky.neu.edu
  * Creation Date: [2012-11-30 13:03]
- * Last Modified: [2012-12-01 17:04]
+ * Last Modified: [2012-12-07 01:26]
  * Licence: chenzc (c) 2012 | all rights reserved
  * Description:  
  *********************************************************/
@@ -15,7 +15,7 @@
 
 // debug
 // DEBUG_NONE _M _LAMB _AVIM _O _SCANBUFFER _INTAVIM _BMP  _BMP_OP _BYTES
-#define DEBUG_NONE
+#define DEBUG_M
 
 #define K 5  // number of low-res images
 

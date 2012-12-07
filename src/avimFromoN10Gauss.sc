@@ -2,7 +2,7 @@
  * File Name: avimFromoN10Gauss.sc
  * Created By: Zhicong Chen -- chen.zhico@husky.neu.edu
  * Creation Date: [2012-12-05 15:28]
- * Last Modified: [2012-12-06 13:45]
+ * Last Modified: [2012-12-07 01:22]
  * Licence: chenzc (c) 2012 | all rights reserved
  * Description:  
  *********************************************************/
@@ -11,13 +11,12 @@
 
 import "i_receiver";
 
-behavior AvimFromoN10Gauss(in int nuv, in int nuh, in int b11, 
-                           in int b12, in int b22, in int deltav, in int deltah,
+behavior AvimFromoN10Gauss(in double nuv, in double nuh, in double b11, 
+                           in double b12, in double b22, in double deltav, in double deltah,
                            i_receiver q_pixel, inout double avim[H_IMG_HEIGHT][H_IMG_WIDTH],
                            inout double h[H_IMG_HEIGHT][H_IMG_WIDTH], 
                            inout double ms[H_IMG_HEIGHT][H_IMG_WIDTH])
 {
-
 
   double limg[1] = {0.0};
 
@@ -26,6 +25,10 @@ behavior AvimFromoN10Gauss(in int nuv, in int nuh, in int b11,
   int hw, hh, lowh, highh, lowv, highv;
 
   void main(void) {
+
+#ifdef DEBUG_LAMB
+        printf("%f %f %f %f %f %f %f\n", nuv, nuh, b11, b12, b22, deltav, deltah);
+#endif
 
     if ((nuh >= 0) && (nuh < H_IMG_WIDTH) && (nuv >= 0) && (nuv < H_IMG_HEIGHT)) {
       // the new point is in the high-res image
@@ -43,6 +46,11 @@ behavior AvimFromoN10Gauss(in int nuv, in int nuh, in int b11,
       highh = (ceil(nuh+deltah) < H_IMG_WIDTH) ? (int)ceil(nuh+deltah) : H_IMG_WIDTH;
       highv = (ceil(nuv+deltav) < H_IMG_HEIGHT) ? (int)ceil(nuv+deltav) : H_IMG_HEIGHT; 
       // Find the right box in the HR image to scan over.
+
+#ifdef DEBUG_MAP
+  printf("%d %d %d %d\n", lowh, lowv, highh, highv);
+#endif
+
 
       myscaler = 0;
 

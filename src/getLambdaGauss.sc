@@ -2,7 +2,7 @@
  * File Name: getLambdaGauss.sc
  * Created By: Zhicong Chen -- chen.zhico@husky.neu.edu
  * Creation Date: [2012-12-05 15:13]
- * Last Modified: [2012-12-06 14:08]
+ * Last Modified: [2012-12-07 00:55]
  * Licence: chenzc (c) 2012 | all rights reserved
  * Description:  
  *********************************************************/
@@ -12,10 +12,10 @@
 const double stdlim = 5; 
 
 // getLambdaGauss(M[k], lh, lw, &nuv, &nuh, &b11, &b12, &b22, &deltav, &deltah);
-behavior GetLambdaGauss(in double M[11], in int x, in int y, out int nuv, out int nuh, inout int b11, 
-                        inout int b12, inout int b22, out int deltav, out int deltah)
-{    
-
+behavior GetLambdaGauss(in double M[11], in int x, in int y, out double nuv, out double nuh, inout double b11, 
+                        inout double b12, inout double b22, out double deltav, out double deltah)
+{ 
+   
   void main(void) {
 
     double denom, h11, h12, h21, h22, detH, gam;

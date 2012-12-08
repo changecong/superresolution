@@ -2,7 +2,7 @@
  * File Name: getLambdaGauss.sc
  * Created By: Zhicong Chen -- chen.zhico@husky.neu.edu
  * Creation Date: [2012-12-05 15:13]
- * Last Modified: [2012-12-08 13:01]
+ * Last Modified: [2012-12-08 16:42]
  * Licence: chenzc (c) 2012 | all rights reserved
  * Description:  
  *********************************************************/
@@ -19,12 +19,14 @@ const double stdlim = 5;
 behavior GetLambdaGauss(i_receiver dh_m, i_sender q_nuv, i_sender q_nuh, i_sender q_b11, 
                         i_sender q_b12, i_sender q_b22, i_sender q_deltav, i_sender q_deltah)
 { 
-  int x, y;
+  int x, y, k;
   double nuv, nuh, b11, b12, b22, deltav, deltah;
   double denom, h11, h12, h21, h22, detH, gam;
   double M[11];
 
   void main(void) {
+
+    for (k = 0; k < K; k++) {  
 
     dh_m.receive(M, sizeof(double[11]));
 
@@ -77,5 +79,5 @@ behavior GetLambdaGauss(i_receiver dh_m, i_sender q_nuv, i_sender q_nuh, i_sende
 
       }
     }
-  }
+  } }
 };

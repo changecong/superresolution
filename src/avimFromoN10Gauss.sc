@@ -2,7 +2,7 @@
  * File Name: avimFromoN10Gauss.sc
  * Created By: Zhicong Chen -- chen.zhico@husky.neu.edu
  * Creation Date: [2012-12-05 15:28]
- * Last Modified: [2012-12-08 14:35]
+ * Last Modified: [2012-12-08 16:43]
  * Licence: chenzc (c) 2012 | all rights reserved
  * Description:  
  *********************************************************/
@@ -37,7 +37,7 @@ behavior AvimFromoN10Gauss(i_receiver q_nuv, i_receiver q_nuh, i_receiver q_b11,
   double  nh, nv;
   double myscaler = 0;
   int hw, hh, lowh, highh, lowv, highv;
-  int x, y, i, j;
+  int x, y, i, j, k;
   
   double nuv, nuh, b11, b12, b22, deltav, deltah;
 
@@ -46,7 +46,9 @@ behavior AvimFromoN10Gauss(i_receiver q_nuv, i_receiver q_nuh, i_receiver q_b11,
   double ms[H_IMG_HEIGHT][H_IMG_WIDTH];
 
   void main(void) {
-    
+
+    for (k = 0; k < K; k++) {
+
     assignment(p_avim, avim);
     assignment(p_h, h);
     assignment(p_ms, ms);
@@ -158,5 +160,5 @@ behavior AvimFromoN10Gauss(i_receiver q_nuv, i_receiver q_nuh, i_receiver q_b11,
     assignment(avim, p_avim);
     assignment(h, p_h);
     assignment(ms, p_ms);
-  }
+  } }
 };

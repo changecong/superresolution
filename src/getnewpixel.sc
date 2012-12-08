@@ -2,7 +2,7 @@
  * File Name: getnewpixel.sc
  * Created By: Zhicong Chen -- chen.zhico@husky.neu.edu
  * Creation Date: [2012-12-05 14:58]
- * Last Modified: [2012-12-08 12:59]
+ * Last Modified: [2012-12-08 16:40]
  * Licence: chenzc (c) 2012 | all rights reserved
  * Description:  
  *********************************************************/
@@ -35,9 +35,6 @@ behavior GetNewPixel(i_receiver dh_m, i_receiver q_pixel,
   c_queue q_deltah(qSize);
 
 //  double nuv, nuh, b11, b12, b22, deltav, deltah;
-  int counter = 0;
-  double M[11] = {0.0};
-
   GetLambdaGauss getLambdaGauss(dh_m, q_nuv, q_nuh, q_b11, q_b12, q_b22, q_deltav, q_deltah);
 
   AvimFromoN10Gauss avimFromoN10Gauss(q_nuv, q_nuh, q_b11, q_b12, q_b22, q_deltav, q_deltah,

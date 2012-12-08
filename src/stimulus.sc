@@ -2,7 +2,7 @@
  * File Name: stimulus.sc
  * Created By: Zhicong Chen -- chen.zhico@husky.neu.edu
  * Creation Date: [2012-12-06 11:04]
- * Last Modified: [2012-12-07 01:39]
+ * Last Modified: [2012-12-08 16:32]
  * Licence: chenzc (c) 2012 | all rights reserved
  * Description:  
  *********************************************************/
@@ -256,7 +256,7 @@ void ReadBmpHeader()
 
 
 behavior Stimulus(inout unsigned char ScanBuffer[L_IMG_HEIGHT][L_IMG_WIDTH],
-                  out double HLG[12], i_send start)
+                  out double HLG[12], i_send start_m, i_send start_p)
 {
 
   int i, r, k, l;
@@ -320,8 +320,9 @@ behavior Stimulus(inout unsigned char ScanBuffer[L_IMG_HEIGHT][L_IMG_WIDTH],
     
       // read parameters end
       // one page done. send sigal.
-      start.send();
-#ifdef DEBUG_H_START
+      start_m.send();
+      start_p.send();
+#ifdef DEBUG_START
   printf("Send start signal.\n");
 #endif   
       waitfor(200 MILLI_SEC);

@@ -2,7 +2,7 @@
  * File Name: design.sc
  * Created By: Zhicong Chen -- chen.zhico@husky.neu.edu
  * Creation Date: [2012-12-05 14:43]
- * Last Modified: [2012-12-07 00:27]
+ * Last Modified: [2012-12-08 14:40]
  * Licence: chenzc (c) 2012 | all rights reserved
  * Description:  
  *********************************************************/
@@ -92,7 +92,7 @@ behavior Design(in unsigned char ScanBuffer[L_IMG_HEIGHT][L_IMG_WIDTH],
       par {
         read.main();
         getNewPixel.main();
-      };
+      }
 
       k++;
     }

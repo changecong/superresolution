@@ -2,23 +2,35 @@
  * File Name: getLambdaGauss.sc
  * Created By: Zhicong Chen -- chen.zhico@husky.neu.edu
  * Creation Date: [2012-12-05 15:13]
- * Last Modified: [2012-12-07 00:55]
+ * Last Modified: [2012-12-08 13:01]
  * Licence: chenzc (c) 2012 | all rights reserved
  * Description:  
  *********************************************************/
 
 #include <math.h> 
+#include "superresolution.sh"
+
+import "i_sender";
+import "i_receiver";
 
 const double stdlim = 5; 
 
 // getLambdaGauss(M[k], lh, lw, &nuv, &nuh, &b11, &b12, &b22, &deltav, &deltah);
-behavior GetLambdaGauss(in double M[11], in int x, in int y, out double nuv, out double nuh, inout double b11, 
-                        inout double b12, inout double b22, out double deltav, out double deltah)
+behavior GetLambdaGauss(i_receiver dh_m, i_sender q_nuv, i_sender q_nuh, i_sender q_b11, 
+                        i_sender q_b12, i_sender q_b22, i_sender q_deltav, i_sender q_deltah)
 { 
-   
+  int x, y;
+  double nuv, nuh, b11, b12, b22, deltav, deltah;
+  double denom, h11, h12, h21, h22, detH, gam;
+  double M[11];
+
   void main(void) {
 
-    double denom, h11, h12, h21, h22, detH, gam;
+    dh_m.receive(M, sizeof(double[11]));
+
+    for (y = 0; y < L_IMG_HEIGHT; y++) {
+      for (x = 0; x < L_IMG_WIDTH; x++) {
+
 
     denom = (x+1)*M[6] + (y+1)*M[7] + 1;        
 
@@ -55,5 +67,15 @@ behavior GetLambdaGauss(in double M[11], in int x, in int y, out double nuv, out
     deltav = 2*stdlim*gam*sqrt(b11)/denom; // vertical extent of the new psf kernel
     deltah = 2*stdlim*gam*sqrt(b22)/denom; // vertical extent of the new psf kernel
 
+    q_nuv.send(&nuv, sizeof(double));
+    q_nuh.send(&nuh, sizeof(double));
+    q_b11.send(&b11, sizeof(double));
+    q_b12.send(&b12, sizeof(double));
+    q_b22.send(&b22, sizeof(double));
+    q_deltav.send(&deltav, sizeof(double));
+    q_deltah.send(&deltah, sizeof(double));
+
+      }
+    }
   }
 };

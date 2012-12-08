@@ -2,7 +2,7 @@
  * File Name: superresolution.sc
  * Created By: Zhicong Chen -- chen.zhico@husky.neu.edu
  * Creation Date: [2012-12-06 11:23]
- * Last Modified: [2012-12-08 16:08]
+ * Last Modified: [2012-12-08 17:02]
  * Licence: chenzc (c) 2012 | all rights reserved
  * Description:  
  *********************************************************/
@@ -17,7 +17,7 @@ import "monitor";
 import "c_handshake";
 import "c_queue";
 
-behavior Main {
+behavior TestBench {
 
   unsigned char ScanBuffer[L_IMG_HEIGHT][L_IMG_WIDTH];
   double HLG[12];
@@ -30,14 +30,23 @@ behavior Main {
   Design design(ScanBuffer, HLG, start_m, start_p, q_bmp);
   Monitor monitor(q_bmp);
 
-  int main(void) {
+  void main(void) {
 
-  par {  
-    stimulus.main();
-    design.main();
-    monitor.main();    
+    par {  
+      stimulus.main();
+      design.main();
+      monitor.main();    
+    } 
   }
+};
+
+behavior Main {
+
+  TestBench testBench;
+
+  int main(void) {
+    testBench.main();
+
     return 0;
- 
   }
 };
